@@ -20,20 +20,22 @@ export default async function RecipeLayout({
           </Link> */}
         </header>
 
-        {recipes.map((recipe) => (
-          <Link
-            key={recipe.id}
-            href={`http://localhost:3000/recipes/${recipe.id}`}
-            className="flex justify-between items-center p-4"
-          >
-            <div className="flex gap-2 flex-col mr-6">
-              <p>{recipe.title}</p>
+        <div className="flex flex-col gap-4 p-4">
+          {recipes.map((recipe) => (
+            <Link
+              key={recipe.id}
+              href={`http://localhost:3000/recipes/${recipe.id}`}
+              className="flex justify-between items-center"
+            >
+              <div className="flex gap-2 flex-col mr-6">
+                <p>{recipe.title}</p>
 
-              {/* {recipe.recipe ? <Badge /> : null} */}
-            </div>
-            <span className="material-symbols-outlined">chevron_right</span>
-          </Link>
-        ))}
+                {/* {recipe.recipe ? <Badge /> : null} */}
+              </div>
+              <span className="material-symbols-outlined">chevron_right</span>
+            </Link>
+          ))}
+        </div>
       </div>
       <article className="p-6 w-full bg-gray-50">{children}</article>
     </div>

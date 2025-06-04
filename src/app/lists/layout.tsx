@@ -21,20 +21,22 @@ export default async function ListLayout({
           </Link>
         </header>
 
-        {lists.map((list) => (
-          <Link
-            key={list.id}
-            href={`http://localhost:3000/lists/${list.id}`}
-            className="flex justify-between items-center p-4"
-          >
-            <div className="flex gap-2 flex-col mr-6">
-              <p>{list.title}</p>
+        <div className="flex flex-col gap-4 p-4">
+          {lists.map((list) => (
+            <Link
+              key={list.id}
+              href={`http://localhost:3000/lists/${list.id}`}
+              className="flex justify-between items-center"
+            >
+              <div className="flex gap-2 flex-col mr-6">
+                <p>{list.title}</p>
 
-              {list.recipe ? <Badge /> : null}
-            </div>
-            <span className="material-symbols-outlined">chevron_right</span>
-          </Link>
-        ))}
+                {list.recipe ? <Badge /> : null}
+              </div>
+              <span className="material-symbols-outlined">chevron_right</span>
+            </Link>
+          ))}
+        </div>
       </div>
       <article className="p-6 w-full bg-gray-50">{children}</article>
     </div>

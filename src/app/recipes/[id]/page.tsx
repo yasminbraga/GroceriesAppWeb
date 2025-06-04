@@ -14,7 +14,24 @@ export default async function Recipe({
 
   return (
     <>
-      <h3 className="text-xl font-semibold mb-2">{recipe.title}</h3>
+      <h2 className="text-xl font-semibold mb-2">{recipe.title}</h2>
+
+      <section>
+        <h3>Ingredientes</h3>
+
+        <ul>
+          {recipe.ingredients.map((item) => (
+            <li key={item.name}>
+              {item.quantity} {item.name}
+            </li>
+          ))}
+        </ul>
+
+        <section>
+          <h3>Instruções</h3>
+          <p>{recipe.instructions}</p>
+        </section>
+      </section>
     </>
   );
 }
