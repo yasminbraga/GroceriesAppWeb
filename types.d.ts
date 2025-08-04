@@ -2,7 +2,7 @@ type RecipeType = {
   id: number;
   title: string;
   ingredients: Array<{ name: string; quantity: string }>;
-  instructions: string;
+  instructions: string[];
 };
 
 type ListType = {
