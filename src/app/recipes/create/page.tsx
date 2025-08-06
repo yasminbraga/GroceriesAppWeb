@@ -1,6 +1,7 @@
 "use client";
 import Input from "@/app/components/ui/Input";
 import { useState } from "react";
+import IngredientInput from "./components/IngredientInput";
 import InstructionInput from "./components/IntructionInput";
 
 const NewRecipe: React.FC = () => {
@@ -21,29 +22,7 @@ const NewRecipe: React.FC = () => {
           onChange={handleTitle}
         />
 
-        <section className="mb-4">
-          <h4 className="font-medium mb-2">Ingredientes</h4>
-          <div className="flex items-center gap-4">
-            <input
-              type="text"
-              placeholder="Quantidade"
-              className="border-1 border-gray-300 rounded-xl p-4 w-full"
-            />
-            <input
-              type="text"
-              placeholder="Ingrediente"
-              className="border-1 border-gray-300 rounded-xl p-4 w-full"
-            />
-            <button
-              type="button"
-              className="bg-amber-500 text-white flex items-center justify-center p-4 rounded-xl font-semibold"
-            >
-              <span className="material-symbols-outlined !text-[18px]">
-                add
-              </span>
-            </button>
-          </div>
-        </section>
+        <IngredientInput />
 
         <InstructionInput />
         <button className="bg-amber-500 text-white flex items-center justify-center p-4 rounded-xl justify-self-end font-semibold mt-4">
