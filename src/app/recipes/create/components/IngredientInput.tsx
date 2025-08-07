@@ -1,27 +1,33 @@
 "use client";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 type Data = {
   name: string;
   quantity: string;
 };
 
-const IngredientInput: React.FC = () => {
-  const [inputData, setInputData] = useState<Data>({
+type Props = {
+  ingredientData: Data[];
+  setIngredientData: Dispatch<SetStateAction<Data[]>>;
+};
+
+function IngredientInput({ ingredientData, setIngredientData }: Props) {
+  const [inputValue, setInputValue] = useState<Data>({
     name: "",
     quantity: "",
   });
-  const [ingredientData, setIngredientData] = useState<Data[]>([]);
+
+  // const [ingredientData, setIngredientData] = useState<Data[]>([]);
 
   const handleIngredientData = () => {
-    if (inputData.name && inputData.quantity) {
+    if (inputValue.name && inputValue.quantity) {
       setIngredientData((prevItems) => [
         ...prevItems,
-        { name: inputData.name, quantity: inputData.quantity },
+        { name: inputValue.name, quantity: inputValue.quantity },
       ]);
     }
 
-    setInputData({ name: "", quantity: "" });
+    setInputValue({ name: "", quantity: "" });
   };
 
   const handleDeleteIngredient = (index: number) => {
@@ -78,17 +84,17 @@ const IngredientInput: React.FC = () => {
           type="text"
           placeholder="Quantidade"
           onChange={(ev) =>
-            setInputData({ ...inputData, quantity: ev.target.value })
+            setInputValue({ ...inputValue, quantity: ev.target.value })
           }
-          value={inputData.quantity}
+          value={inputValue.quantity}
           className="border-1 border-gray-300 rounded-xl p-4 w-full"
         />
         <input
           type="text"
           placeholder="Ingrediente"
-          value={inputData.name}
+          value={inputValue.name}
           onChange={(ev) =>
-            setInputData({ ...inputData, name: ev.target.value })
+            setInputValue({ ...inputValue, name: ev.target.value })
           }
           className="border-1 border-gray-300 rounded-xl p-4 w-full"
         />
@@ -102,6 +108,6 @@ const IngredientInput: React.FC = () => {
       </div>
     </section>
   );
-};
+}
 
 export default IngredientInput;

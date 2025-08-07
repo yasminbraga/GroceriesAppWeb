@@ -4,8 +4,15 @@ import { useState } from "react";
 import IngredientInput from "./components/IngredientInput";
 import InstructionInput from "./components/IntructionInput";
 
+type Data = {
+  name: string;
+  quantity: string;
+};
+
 const NewRecipe: React.FC = () => {
   const [recipeTitle, setRecipeTitle] = useState<string | null>(null);
+  const [ingredientData, setIngredientData] = useState<Data[]>([]);
+  const [instructionList, setInstructionList] = useState<string[]>([]);
 
   const handleTitle = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setRecipeTitle(ev.target.value);
@@ -22,9 +29,15 @@ const NewRecipe: React.FC = () => {
           onChange={handleTitle}
         />
 
-        <IngredientInput />
+        <IngredientInput
+          ingredientData={ingredientData}
+          setIngredientData={setIngredientData}
+        />
 
-        <InstructionInput />
+        <InstructionInput
+          instructionList={instructionList}
+          setInstructionList={setInstructionList}
+        />
         <button className="bg-amber-500 text-white flex items-center justify-center p-4 rounded-xl justify-self-end font-semibold mt-4">
           Criar receita
         </button>
