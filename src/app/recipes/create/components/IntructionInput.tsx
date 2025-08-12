@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 type Props = {
   instructionList: string[];
@@ -11,7 +11,6 @@ const InstructionInput: React.FC<Props> = ({
   instructionList,
   setInstructionList,
 }) => {
-  // const [instructionList, setInstructionList] = useState<string[]>([]);
   const [instruction, setInstruction] = useState<string>("");
   const [increment, setIncrement] = useState(1);
 
@@ -29,10 +28,6 @@ const InstructionInput: React.FC<Props> = ({
     oldList[index] = value;
     setInstructionList(oldList);
   };
-
-  useEffect(() => {
-    console.log(instructionList);
-  }, [instructionList]);
 
   return (
     <section>
