@@ -1,4 +1,5 @@
 "use client";
+import Input from "@/app/components/ui/Input";
 import { useEffect, useState } from "react";
 
 type Data = {
@@ -31,6 +32,10 @@ const NewList: React.FC = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleTitle = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setListName(ev.target.value);
   };
 
   const handleSelect = (ev: React.ChangeEvent<HTMLSelectElement>) => {
@@ -84,23 +89,17 @@ const NewList: React.FC = () => {
   };
 
   return (
-    <div>
-      <h3 className="font-semibold text-lg mb-2">Nova Lista</h3>
-      <form
-        className="flex flex-col bg-white rounded p-6 w-[600px] shadow-sm"
-        onSubmit={handleSubmit}
-      >
-        <label className="flex flex-col gap-1 my-2">
-          <span className="text-sm">Título da lista</span>
-          <input
-            type="text"
-            placeholder="Título da lista"
-            onChange={(ev) => setListName(ev.target.value)}
-            className="border-1 rounded border-gray-300 p-1"
-          />
-        </label>
+    <div className="max-w-2xl">
+      <h3 className="font-bold text-3xl py-4">Nova Lista</h3>
 
-        <label htmlFor="" className="flex flex-col gap-1 my-2">
+      <form onSubmit={handleSubmit}>
+        <Input
+          label="Título da lista"
+          placeholder="Título da lista"
+          handleValue={handleTitle}
+        />
+
+        <label className="flex flex-col gap-1 my-2">
           <span className="text-sm">Anexe uma receita</span>
           <select
             name="recipeId"
