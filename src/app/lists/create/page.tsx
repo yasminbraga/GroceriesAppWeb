@@ -1,9 +1,10 @@
 "use client";
+import IngredientInput from "@/app/components/IngredientInput";
 import Input from "@/app/components/ui/Input";
 import { useEffect, useState } from "react";
 
 type Data = {
-  productName: string;
+  name: string;
   quantity: string;
 };
 
@@ -12,13 +13,12 @@ const NewList: React.FC = () => {
   const [listName, setListName] = useState<string | null>(null);
   const [selectedRecipeId, setSelectedRecipeId] = useState<string>("");
   const [inputData, setInputData] = useState<Data>({
-    productName: "",
+    name: "",
     quantity: "",
   });
   const [productData, setProductData] = useState<Data[]>([]);
   const isInputDisabled = selectedRecipeId !== "";
-  const isSelectedDisabled =
-    inputData.productName !== "" || inputData.quantity !== "";
+  const isSelectedDisabled = inputData.name !== "" || inputData.quantity !== "";
 
   useEffect(() => {
     loadRecipes();
@@ -43,14 +43,14 @@ const NewList: React.FC = () => {
   };
 
   const handleProductData = () => {
-    if (inputData.productName && inputData.quantity) {
+    if (inputData.name && inputData.quantity) {
       setProductData((prevItems) => [
         ...prevItems,
-        { productName: inputData.productName, quantity: inputData.quantity },
+        { name: inputData.name, quantity: inputData.quantity },
       ]);
     }
 
-    setInputData({ productName: "", quantity: "" });
+    setInputData({ name: "", quantity: "" });
   };
 
   const handleEditProduct = (index: number, value: Partial<Data>) => {
@@ -88,6 +88,10 @@ const NewList: React.FC = () => {
     }
   };
 
+  // useEffect(() => {
+  //   console.log(productData);
+  // }, [productData]);
+
   return (
     <div className="max-w-2xl">
       <h3 className="font-bold text-3xl py-4">Nova Lista</h3>
@@ -117,75 +121,11 @@ const NewList: React.FC = () => {
           </select>
         </label>
 
-        <div>
-          <span className="text-sm mb-1">Produtos</span>
-
-          <div className="flex flex-col gap-2 mb-2">
-            {productData.map((item, index) => (
-              <div key={index} className="flex items-center gap-2 w-full">
-                <input
-                  type="text"
-                  placeholder="Quantidade"
-                  className="border-1 rounded border-gray-300 p-1 w-full"
-                  value={item.quantity}
-                  onChange={(ev) =>
-                    handleEditProduct(index, { quantity: ev.target.value })
-                  }
-                />
-                <input
-                  type="text"
-                  placeholder="Produto"
-                  className="border-1 rounded border-gray-300 p-1 w-full"
-                  value={item.productName}
-                  onChange={(ev) =>
-                    handleEditProduct(index, { productName: ev.target.value })
-                  }
-                />
-
-                <button
-                  type="button"
-                  onClick={() => handleDeleteProduct(index)}
-                  className="flex items-center justify-center p-2 rounded"
-                >
-                  <span className="material-symbols-outlined !text-[18px] text-amber-500">
-                    delete
-                  </span>
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <input
-              type="text"
-              disabled={isInputDisabled}
-              placeholder="Quantidade"
-              className="border-1 rounded border-gray-300 p-1 w-full"
-              value={inputData.quantity}
-              onChange={(ev) =>
-                setInputData({ ...inputData, quantity: ev.target.value })
-              }
-            />
-            <input
-              type="text"
-              placeholder="Produto"
-              className="border-1 rounded border-gray-300 p-1 w-full"
-              value={inputData.productName}
-              onChange={(ev) =>
-                setInputData({ ...inputData, productName: ev.target.value })
-              }
-            />
-            <button
-              type="button"
-              onClick={handleProductData}
-              className="bg-amber-500 text-white flex items-center justify-center p-2 rounded"
-            >
-              <span className="material-symbols-outlined !text-[18px]">
-                add
-              </span>
-            </button>
-          </div>
-        </div>
+        <IngredientInput
+          ingredientData={productData}
+          setIngredientData={setProductData}
+          isInputDisabled={isInputDisabled}
+        />
 
         <button
           type="submit"

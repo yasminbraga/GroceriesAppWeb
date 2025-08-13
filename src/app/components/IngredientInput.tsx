@@ -9,15 +9,18 @@ type Data = {
 type Props = {
   ingredientData: Data[];
   setIngredientData: Dispatch<SetStateAction<Data[]>>;
+  isInputDisabled?: boolean;
 };
 
-function IngredientInput({ ingredientData, setIngredientData }: Props) {
+function IngredientInput({
+  ingredientData,
+  setIngredientData,
+  isInputDisabled,
+}: Props) {
   const [inputValue, setInputValue] = useState<Data>({
     name: "",
     quantity: "",
   });
-
-  // const [ingredientData, setIngredientData] = useState<Data[]>([]);
 
   const handleIngredientData = () => {
     if (inputValue.name && inputValue.quantity) {
@@ -87,12 +90,14 @@ function IngredientInput({ ingredientData, setIngredientData }: Props) {
             setInputValue({ ...inputValue, quantity: ev.target.value })
           }
           value={inputValue.quantity}
+          disabled={isInputDisabled}
           className="border-1 border-gray-300 rounded-xl p-4 w-full"
         />
         <input
           type="text"
           placeholder="Ingrediente"
           value={inputValue.name}
+          disabled={isInputDisabled}
           onChange={(ev) =>
             setInputValue({ ...inputValue, name: ev.target.value })
           }
