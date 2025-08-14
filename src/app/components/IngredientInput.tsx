@@ -9,15 +9,18 @@ type Data = {
 type Props = {
   ingredientData: Data[];
   setIngredientData: Dispatch<SetStateAction<Data[]>>;
+  isInputDisabled?: boolean;
 };
 
-function IngredientInput({ ingredientData, setIngredientData }: Props) {
+function IngredientInput({
+  ingredientData,
+  setIngredientData,
+  isInputDisabled,
+}: Props) {
   const [inputValue, setInputValue] = useState<Data>({
     name: "",
     quantity: "",
   });
-
-  // const [ingredientData, setIngredientData] = useState<Data[]>([]);
 
   const handleIngredientData = () => {
     if (inputValue.name && inputValue.quantity) {
@@ -45,9 +48,9 @@ function IngredientInput({ ingredientData, setIngredientData }: Props) {
     <section className="mb-4">
       <h4 className="font-medium mb-2">Ingredientes</h4>
 
-      <div className="flex flex-col gap-4 mb-4">
+      <div className="flex flex-col">
         {ingredientData.map((item, index) => (
-          <div key={index} className="flex items-center gap-4">
+          <div key={index} className="flex items-center gap-4 mb-4">
             <input
               type="text"
               placeholder="Quantidade"
@@ -87,21 +90,24 @@ function IngredientInput({ ingredientData, setIngredientData }: Props) {
             setInputValue({ ...inputValue, quantity: ev.target.value })
           }
           value={inputValue.quantity}
-          className="border-1 border-gray-300 rounded-xl p-4 w-full"
+          disabled={isInputDisabled}
+          className="border-1 border-gray-300 rounded-xl p-4 w-full disabled:bg-gray-300"
         />
         <input
           type="text"
           placeholder="Ingrediente"
           value={inputValue.name}
+          disabled={isInputDisabled}
           onChange={(ev) =>
             setInputValue({ ...inputValue, name: ev.target.value })
           }
-          className="border-1 border-gray-300 rounded-xl p-4 w-full"
+          className="border-1 border-gray-300 rounded-xl p-4 w-full disabled:bg-gray-300"
         />
         <button
           type="button"
+          disabled={isInputDisabled}
           onClick={handleIngredientData}
-          className="bg-amber-500 text-white flex items-center justify-center p-4 rounded-xl font-semibold"
+          className="bg-amber-500 text-white flex items-center justify-center p-4 rounded-xl font-semibold disabled:bg-gray-300"
         >
           <span className="material-symbols-outlined !text-[18px]">add</span>
         </button>
