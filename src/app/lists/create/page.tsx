@@ -12,13 +12,9 @@ const NewList: React.FC = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const [listName, setListName] = useState<string | null>(null);
   const [selectedRecipeId, setSelectedRecipeId] = useState<string>("");
-  const [inputData, setInputData] = useState<Data>({
-    name: "",
-    quantity: "",
-  });
   const [productData, setProductData] = useState<Data[]>([]);
   const isInputDisabled = selectedRecipeId !== "";
-  const isSelectedDisabled = inputData.name !== "" || inputData.quantity !== "";
+  const isSelectedDisabled = productData.length !== 0;
 
   useEffect(() => {
     loadRecipes();
@@ -40,28 +36,6 @@ const NewList: React.FC = () => {
 
   const handleSelect = (ev: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRecipeId(ev.target.value);
-  };
-
-  const handleProductData = () => {
-    if (inputData.name && inputData.quantity) {
-      setProductData((prevItems) => [
-        ...prevItems,
-        { name: inputData.name, quantity: inputData.quantity },
-      ]);
-    }
-
-    setInputData({ name: "", quantity: "" });
-  };
-
-  const handleEditProduct = (index: number, value: Partial<Data>) => {
-    const oldData = [...productData];
-
-    oldData[index] = { ...oldData[index], ...value };
-    setProductData(oldData);
-  };
-
-  const handleDeleteProduct = (index: number) => {
-    setProductData((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (ev: React.FormEvent) => {
@@ -88,10 +62,6 @@ const NewList: React.FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log(productData);
-  // }, [productData]);
-
   return (
     <div className="max-w-2xl">
       <h3 className="font-bold text-3xl py-4">Nova Lista</h3>
@@ -103,14 +73,16 @@ const NewList: React.FC = () => {
           handleValue={handleTitle}
         />
 
-        <label className="flex flex-col gap-1 my-2">
-          <span className="text-sm">Anexe uma receita</span>
+        <label className="flex flex-col gap-1 mb-4">
+          <span className="font-medium mb-2">Anexe uma receita</span>
           <select
             name="recipeId"
             value={selectedRecipeId ?? ""}
             onChange={(ev) => handleSelect(ev)}
             disabled={isSelectedDisabled}
-            className="border-1 rounded border-gray-300 p-1"
+            className={
+              "border-1 border-gray-300 rounded-xl p-4 disabled:bg-gray-300"
+            }
           >
             <option value="">Selecione uma receita</option>
             {recipes.map((recipe) => (
@@ -127,11 +99,8 @@ const NewList: React.FC = () => {
           isInputDisabled={isInputDisabled}
         />
 
-        <button
-          type="submit"
-          className="bg-amber-500 text-white font-semibold text-sm flex items-center justify-center p-2 rounded w-fit self-end mt-4 cursor-pointer"
-        >
-          Criar Lista
+        <button className="bg-amber-500 text-white flex items-center justify-center p-4 rounded-xl justify-self-end font-semibold mt-4">
+          Criar lista
         </button>
       </form>
     </div>

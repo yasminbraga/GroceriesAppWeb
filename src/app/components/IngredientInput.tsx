@@ -48,9 +48,9 @@ function IngredientInput({
     <section className="mb-4">
       <h4 className="font-medium mb-2">Ingredientes</h4>
 
-      <div className="flex flex-col gap-4 mb-4">
+      <div className="flex flex-col">
         {ingredientData.map((item, index) => (
-          <div key={index} className="flex items-center gap-4">
+          <div key={index} className="flex items-center gap-4 mb-4">
             <input
               type="text"
               placeholder="Quantidade"
@@ -91,7 +91,7 @@ function IngredientInput({
           }
           value={inputValue.quantity}
           disabled={isInputDisabled}
-          className="border-1 border-gray-300 rounded-xl p-4 w-full"
+          className="border-1 border-gray-300 rounded-xl p-4 w-full disabled:bg-gray-300"
         />
         <input
           type="text"
@@ -101,12 +101,13 @@ function IngredientInput({
           onChange={(ev) =>
             setInputValue({ ...inputValue, name: ev.target.value })
           }
-          className="border-1 border-gray-300 rounded-xl p-4 w-full"
+          className="border-1 border-gray-300 rounded-xl p-4 w-full disabled:bg-gray-300"
         />
         <button
           type="button"
+          disabled={isInputDisabled}
           onClick={handleIngredientData}
-          className="bg-amber-500 text-white flex items-center justify-center p-4 rounded-xl font-semibold"
+          className="bg-amber-500 text-white flex items-center justify-center p-4 rounded-xl font-semibold disabled:bg-gray-300"
         >
           <span className="material-symbols-outlined !text-[18px]">add</span>
         </button>
