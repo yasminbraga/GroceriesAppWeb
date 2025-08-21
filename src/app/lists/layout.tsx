@@ -46,11 +46,9 @@ export default async function ListLayout({
           <Dropdown lists={lists} />
           <Link
             href={"/lists/create"}
-            className="flex items-center gap-2 bg-amber-500 rounded text-white py-1 px-2 font-medium text-sm cursor-pointer"
+            className="flex items-center gap-2 bg-amber-500 text-white font-medium text-sm cursor-pointer p-4 rounded-xl"
           >
-            <span className="material-symbols-outlined !text-[18px] p-2 rounded-xl">
-              add
-            </span>
+            <span className="material-symbols-outlined !text-[18px]">add</span>
             <p>Nova lista</p>
           </Link>
         </div>

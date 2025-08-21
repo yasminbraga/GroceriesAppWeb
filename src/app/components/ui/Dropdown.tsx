@@ -14,7 +14,7 @@ const Dropdown = ({ lists }: { lists: ListType[] }) => {
   return (
     <div className="relative">
       <button
-        className="flex gap-2 items-center justify-between p-2 border-1 border-gray-300 rounded-xl"
+        className="flex gap-2 items-center justify-between p-4 border-1 border-gray-300 rounded-xl"
         onClick={handleToggle}
       >
         <span>Listas</span>
