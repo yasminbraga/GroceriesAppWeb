@@ -15,7 +15,7 @@ export default async function ListLayout({
           <h2 className="text-lg font-semibold">Listas</h2>
           <Link
             href={"/lists/create"}
-            className="flex items-center gap-2 bg-amber-500 rounded text-white py-1 px-2 font-medium text-sm cursor-pointer"
+            className="flex items-center gap-2 bg-amber-500 rounded-md text-white p-2 font-semibold text-sm cursor-pointer"
           >
             <span className="material-symbols-outlined !text-[18px]">add</span>
             <p>Nova lista</p>
@@ -46,7 +46,7 @@ export default async function ListLayout({
           <Dropdown lists={lists} />
           <Link
             href={"/lists/create"}
-            className="flex items-center gap-2 bg-amber-500 text-white font-medium text-sm cursor-pointer p-4 rounded-xl"
+            className="flex items-center gap-2 bg-amber-500 text-white font-semibold text-sm cursor-pointer p-2 rounded-md"
           >
             <span className="material-symbols-outlined !text-[18px]">add</span>
             <p>Nova lista</p>
