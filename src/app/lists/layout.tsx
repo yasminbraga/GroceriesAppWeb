@@ -54,7 +54,7 @@ export default async function ListLayout({
         </div>
       </div>
 
-      <article className="p-6 w-full bg-gray-50">{children}</article>
+      <article className="p-6 w-full bg-gray-50 h-full">{children}</article>
     </div>
   );
 }
