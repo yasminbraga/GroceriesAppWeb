@@ -14,10 +14,13 @@ export default async function Recipe({
 
   return (
     <>
-      <h2 className="text-xl font-semibold mb-2">{recipe.title}</h2>
+      <div className="mb-4">
+        <h2 className="text-3xl font-bold mb-3">{recipe.title}</h2>
+        <p className="text-sm text-gray-400">Criado em: 01/09/2025</p>
+      </div>
 
       <section>
-        <h3>Ingredientes</h3>
+        <h3 className="text-xl font-bold mb-3">Ingredientes</h3>
 
         <ul>
           {recipe.ingredients.map((item) => (
@@ -27,8 +30,8 @@ export default async function Recipe({
           ))}
         </ul>
 
-        <section>
-          <h3>Instruções</h3>
+        <section className="mt-4">
+          <h3 className="text-xl font-bold mb-3">Instruções</h3>
           <p>{recipe.instructions}</p>
         </section>
       </section>
