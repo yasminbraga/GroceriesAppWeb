@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import MainHeader from "./components/MainHeader";
 import "./globalicons.css";
 import "./globals.css";
 
@@ -21,8 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${plusJakartaSans.className} antialiased h-full`}>
-        <MainHeader />
-        <main className="h-(--main-content-height)">{children}</main>
+        {children}
       </body>
     </html>
   );
