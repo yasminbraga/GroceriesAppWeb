@@ -8,8 +8,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Groceries App",
-  description: "Organize your groceries",
+  title: "Mercado Plan",
+  description: "Organize suas compras e suas receitas",
 };
 
 export default function RootLayout({
