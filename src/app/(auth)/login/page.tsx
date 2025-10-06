@@ -9,7 +9,7 @@ const Login: React.FC = () => {
       <form
         action={async (formData) => {
           "use server";
-          await signIn("credentials", formData);
+          await signIn("credentials", formData, { callbackUrl: "/recipes" });
         }}
       >
         <label className="flex flex-col gap-2">

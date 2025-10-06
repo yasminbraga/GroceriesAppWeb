@@ -22,10 +22,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const data = await res.json();
 
           if (!res.ok || !data.token) return null;
+          console.log(data);
 
-          return data;
+          return {
+            id: data.user.id,
+            name: data.user.name,
+            email: data.user.email,
+            accessToken: data.token,
+          };
         } catch (error) {
           console.error(error);
+          return null;
         }
       },
     }),
@@ -34,9 +41,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     authorized: async ({ auth }) => {
       return !!auth;
     },
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+    async session({ session, token }: any) {
+      session.user = token.user;
+      return session;
+    },
   },
-
+  session: {
+    strategy: "jwt",
+  },
   pages: {
     signIn: "/login",
   },
+  trustHost: true,
 });

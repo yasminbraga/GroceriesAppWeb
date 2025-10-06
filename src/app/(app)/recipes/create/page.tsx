@@ -1,8 +1,8 @@
 "use client";
+import IngredientInput from "@/app/components/IngredientInput";
 import Input from "@/app/components/ui/Input";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import IngredientInput from "../../components/IngredientInput";
 import InstructionInput from "./components/IntructionInput";
 
 type Data = {

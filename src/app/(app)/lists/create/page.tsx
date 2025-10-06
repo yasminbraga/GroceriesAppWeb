@@ -1,4 +1,5 @@
 "use client";
+
 import IngredientInput from "@/app/components/IngredientInput";
 import Input from "@/app/components/ui/Input";
 import { useEffect, useState } from "react";
