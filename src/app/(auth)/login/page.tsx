@@ -17,11 +17,11 @@ const Login: React.FC = () => {
       redirect: false,
       email,
       password,
-      callbackUrl: "/",
+      callbackUrl: "/myAccount",
     });
 
     if (res.ok) {
-      router.push("/");
+      router.push("/myAccount");
     } else {
       alert("Credenciais inválidas");
     }
