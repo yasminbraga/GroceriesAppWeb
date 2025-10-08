@@ -8,9 +8,11 @@ import { useState } from "react";
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setError("");
     e.preventDefault();
 
     const res = await signIn("credentials", {
@@ -19,6 +21,10 @@ const Login: React.FC = () => {
       password,
       callbackUrl: "/myAccount",
     });
+
+    if (res.error) {
+      setError("Email ou senha incorretos");
+    }
 
     if (res.ok) {
       router.push("/myAccount");
@@ -32,6 +38,11 @@ const Login: React.FC = () => {
       <h1>Mercado Plan</h1>
 
       <form onSubmit={handleSubmit}>
+        {error && (
+          <div className="p-4 bg-red-100 rounded-xl text-red-400 text-center">
+            {error}
+          </div>
+        )}
         <label className="flex flex-col gap-2">
           Email
           <input
@@ -60,7 +71,7 @@ const Login: React.FC = () => {
           Esqueceu sua senha?
         </Link>
 
-        <button className="bg-amber-500 text-white flex items-center justify-center p-4 rounded-xl w-full font-semibold mt-4">
+        <button className="bg-amber-500 text-white flex items-center justify-center p-4 rounded-xl w-full font-semibold mt-4 cursor-pointer">
           Entrar
         </button>
 
