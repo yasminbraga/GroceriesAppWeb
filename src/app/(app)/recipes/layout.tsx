@@ -1,5 +1,6 @@
+import RecipeDropdown from "@/app/components/ui/RecipeDropdown";
 import Link from "next/link";
-import RecipeDropdown from "../components/ui/RecipeDropdown";
+
 export default async function RecipeLayout({
   children,
 }: {

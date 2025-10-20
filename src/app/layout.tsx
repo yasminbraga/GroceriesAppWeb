@@ -1,4 +1,6 @@
+import { auth } from "@/auth";
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globalicons.css";
 import "./globals.css";
@@ -8,20 +10,23 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Groceries App",
-  description: "Organize your groceries",
+  title: "Mercado Plan",
+  description: "Organize suas compras e suas receitas",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
-    <html lang="en">
-      <body className={`${plusJakartaSans.className} antialiased h-full`}>
-        {children}
-      </body>
-    </html>
+    <SessionProvider session={session}>
+      <html lang="en">
+        <body className={`${plusJakartaSans.className} antialiased h-full`}>
+          {children}
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

@@ -1,6 +1,7 @@
+import Badge from "@/app/components/Badge";
+import Dropdown from "@/app/components/ui/Dropdown";
 import Link from "next/link";
-import Badge from "../components/Badge";
-import Dropdown from "../components/ui/Dropdown";
+
 export default async function ListLayout({
   children,
 }: {

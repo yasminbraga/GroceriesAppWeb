@@ -4,10 +4,9 @@ import { useState } from "react";
 
 const MainHeader: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     <header className="border-b-1 border-b-gray-300 flex items-center justify-between h-[64px] p-4 relative z-50 bg-white">
-      <h1>GroceriesApp</h1>
+      <h1>MercadoPlan</h1>
       <nav className="hidden md:block">
         <ul className="flex items-center gap-4">
           <li>
