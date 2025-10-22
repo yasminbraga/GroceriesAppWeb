@@ -1,12 +1,12 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
@@ -15,21 +15,24 @@ const Login: React.FC = () => {
     setError("");
     e.preventDefault();
 
-    const res = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-      callbackUrl: "/myAccount",
-    });
+    try {
+      const res = await fetch("http://localhost:8080/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          key: "Access-Control-Allow-Credentials",
+          value: "true",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
 
-    if (res.error) {
-      setError("Email ou senha incorretos");
-    }
-
-    if (res.ok) {
-      router.push("/myAccount");
-    } else {
-      alert("Credenciais inválidas");
+      if (res.ok) router.push("/login");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -43,6 +46,18 @@ const Login: React.FC = () => {
             {error}
           </div>
         )}
+        <label className="flex flex-col gap-2">
+          Seu nome
+          <input
+            type="text"
+            name="name"
+            placeholder="Seu nome"
+            className="border-1 border-gray-300 rounded-xl p-4"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+          />
+        </label>
+
         <label className="flex flex-col gap-2">
           Email
           <input
@@ -67,20 +82,16 @@ const Login: React.FC = () => {
           />
         </label>
 
-        <Link href={""} className="text-amber-500 underline text-sm">
-          Esqueceu sua senha?
-        </Link>
-
         <button className="bg-amber-500 text-white flex items-center justify-center p-4 rounded-xl w-full font-semibold mt-4 cursor-pointer">
-          Entrar
+          Criar conta
         </button>
 
-        <Link href={"/register"} className="text-amber-500 underline text-sm">
-          Não possui conta? Cadastre-se
+        <Link href={"/login"} className="text-amber-500 underline text-sm">
+          Já possui conta? Login
         </Link>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;

@@ -23,7 +23,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const data = await res.json();
 
           if (!res.ok || !data.token) return null;
-          console.log(data);
 
           return {
             id: data.user.id,
@@ -58,6 +57,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   pages: {
     signIn: "/login",
+    newUser: "/register",
   },
   trustHost: true,
 });
