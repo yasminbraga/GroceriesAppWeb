@@ -22,8 +22,20 @@ const AuthSection: React.FC = () => {
         </button>
 
         {isOpen && (
-          <div className="absolute right-2 top-10 bg-white shadow-lg p-4 rounded-lg min-w-[200px]">
-            <button onClick={() => signOut()}>logout</button>
+          <div className="absolute right-2 top-10 bg-white shadow-lg p-4 rounded-lg min-w-[200px] flex flex-col gap-4">
+            <Link href={"/myAccount"} className="hover:text-gray-400">
+              Minha conta
+            </Link>
+
+            <button
+              onClick={() => signOut()}
+              className="flex items-center gap-2 cursor-pointer hover:text-gray-400"
+            >
+              <span className="material-symbols-outlined cursor-pointer">
+                logout
+              </span>
+              Sair
+            </button>
           </div>
         )}
       </section>
