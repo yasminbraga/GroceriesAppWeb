@@ -1,6 +1,7 @@
 import NextAuth, { Session, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
+import { cookies } from "next/headers";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -23,6 +24,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const data = await res.json();
 
           if (!res.ok || !data.token) return null;
+
+          const cookieStore = await cookies();
+          cookieStore.set("accessToken", data.token);
 
           return {
             id: data.user.id,
