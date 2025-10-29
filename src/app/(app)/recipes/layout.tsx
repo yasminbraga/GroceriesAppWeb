@@ -1,4 +1,5 @@
 import RecipeDropdown from "@/app/components/ui/RecipeDropdown";
+import { cookies } from "next/headers";
 import Link from "next/link";
 
 export default async function RecipeLayout({
@@ -6,8 +7,22 @@ export default async function RecipeLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const data = await fetch("http://localhost:8080/recipes");
+  const cookieStore = await cookies();
+  const token = cookieStore.get("accessToken")?.value;
+
+  const data = await fetch("http://localhost:8080/recipes", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    credentials: "include",
+    cache: "no-store",
+  });
+
+  if (!data.ok) {
+    return <h2>Erro ao carregar receitas</h2>;
+  }
   const recipes: RecipeType[] = await data.json();
+
   return (
     <div className="flex flex-col md:flex-row h-full">
       <div className="border-r-1 border-r-gray-300 w-[300px] hidden md:block">
@@ -26,7 +41,7 @@ export default async function RecipeLayout({
           {recipes.map((recipe) => (
             <Link
               key={recipe.id}
-              href={`http://localhost:3000/recipes/${recipe.id}`}
+              href={`http://localhost:3001/recipes/${recipe.id}`}
               className="flex justify-between items-center"
             >
               <div className="flex gap-2 flex-col mr-6">
