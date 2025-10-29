@@ -1,11 +1,10 @@
 "use client";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
+import AuthSection from "./AuthSection";
 
 const MainHeader: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session } = useSession();
 
   return (
     <header className="border-b-1 border-b-gray-300 flex items-center justify-between h-[64px] p-4 relative z-50 bg-white">
@@ -40,19 +39,7 @@ const MainHeader: React.FC = () => {
         </ul>
       </nav>
 
-      {session?.user ? (
-        <section className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center">
-            <span className="material-symbols-outlined">person</span>
-          </div>
-          <h3 className="capitalize text-gray-400">{session.user.name}</h3>
-          <span className="material-symbols-outlined cursor-pointer text-gray-400">
-            keyboard_arrow_down
-          </span>
-        </section>
-      ) : (
-        <Link href={"/login"}>Login</Link>
-      )}
+      <AuthSection />
 
       <button
         type="button"
