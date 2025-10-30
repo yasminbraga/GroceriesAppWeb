@@ -1,5 +1,15 @@
+import { cookies } from "next/headers";
+
 async function getRecipe(id: number) {
-  const res = await fetch(`http://localhost:8080/recipes/${id}`);
+  const cookieStore = await cookies();
+  const token = cookieStore.get("accessToken")?.value;
+  const res = await fetch(`http://localhost:8080/recipes/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    credentials: "include",
+    cache: "no-store",
+  });
   const recipe: RecipeType = await res.json();
   return recipe;
 }
@@ -22,9 +32,9 @@ export default async function Recipe({
       <section>
         <h3 className="text-xl font-bold mb-3">Ingredientes</h3>
 
-        <ul>
+        <ul className="px-4">
           {recipe.ingredients.map((item) => (
-            <li key={item.name}>
+            <li key={item.name} className="list-disc mt-2">
               {item.quantity} {item.name}
             </li>
           ))}
@@ -32,7 +42,13 @@ export default async function Recipe({
 
         <section className="mt-4">
           <h3 className="text-xl font-bold mb-3">Instruções</h3>
-          <p>{recipe.instructions}</p>
+          <ul className="px-4">
+            {recipe.instructions.map((item) => (
+              <li key={item} className="list-decimal mt-2">
+                {item}
+              </li>
+            ))}
+          </ul>
         </section>
       </section>
     </>

@@ -1,5 +1,6 @@
 import Badge from "@/app/components/Badge";
 import Dropdown from "@/app/components/ui/Dropdown";
+import { cookies } from "next/headers";
 import Link from "next/link";
 
 export default async function ListLayout({
@@ -7,7 +8,21 @@ export default async function ListLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const data = await fetch("http://localhost:8080/lists");
+  const cookieStore = await cookies();
+  const token = cookieStore.get("accessToken")?.value;
+  console.log(token);
+  const data = await fetch("http://localhost:8080/lists", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    credentials: "include",
+    cache: "no-store",
+  });
+
+  if (!data.ok) {
+    return <h2>Erro ao carregar listas</h2>;
+  }
+
   const lists: ListType[] = await data.json();
   return (
     <div className="flex flex-col md:flex-row h-full">
