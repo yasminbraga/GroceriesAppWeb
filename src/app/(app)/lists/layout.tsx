@@ -10,7 +10,6 @@ export default async function ListLayout({
 }) {
   const cookieStore = await cookies();
   const token = cookieStore.get("accessToken")?.value;
-  console.log(token);
   const data = await fetch("http://localhost:8080/lists", {
     headers: {
       Authorization: `Bearer ${token}`,
