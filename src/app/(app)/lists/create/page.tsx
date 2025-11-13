@@ -18,12 +18,23 @@ const NewList: React.FC = () => {
   const isSelectedDisabled = productData.length !== 0;
 
   useEffect(() => {
-    loadRecipes();
+    const cookieValue = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("accessToken="))
+      ?.split("=")[1];
+
+    loadRecipes(cookieValue ?? "");
   }, []);
 
-  const loadRecipes = async () => {
+  const loadRecipes = async (token: string) => {
     try {
-      const data = await fetch("http://localhost:8080/recipes");
+      const data = await fetch("http://localhost:8080/recipes", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+        cache: "no-store",
+      });
       const dataRecipes = await data.json();
       setRecipes(dataRecipes);
     } catch (error) {
