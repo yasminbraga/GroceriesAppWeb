@@ -3,6 +3,7 @@
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
+import NotificationIcon from "./NotificationIcon";
 
 const AuthSection: React.FC = () => {
   const { data: session } = useSession();
@@ -11,6 +12,8 @@ const AuthSection: React.FC = () => {
   if (session?.user)
     return (
       <section className="flex items-center gap-2 relative">
+        <NotificationIcon />
+
         <div className="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center">
           <span className="material-symbols-outlined">person</span>
         </div>
