@@ -43,12 +43,12 @@ const NotificationIcon = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative md:w-fit w-full">
       <button
-        className="w-10 h-10 cursor-pointer"
+        className="cursor-pointer flex items-center justify-between gap-2"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="relative flex items-center justify-center">
+        <div className="h-10 relative flex items-center justify-center w-10">
           <span className="w-5 h-5 rounded-full bg-red-600 text-white text-xs font-semibold absolute right-0 top-0 flex items-center justify-center">
             {unreadCount}
           </span>
@@ -56,6 +56,7 @@ const NotificationIcon = () => {
             notifications
           </span>
         </div>
+        <span className="md:hidden text-gray-400">Notificações</span>
       </button>
 
       {isOpen && (

@@ -39,7 +39,9 @@ const MainHeader: React.FC = () => {
         </ul>
       </nav>
 
-      <AuthSection />
+      <div className="hidden md:block">
+        <AuthSection />
+      </div>
 
       <button
         type="button"
@@ -57,32 +59,38 @@ const MainHeader: React.FC = () => {
           ></div>
 
           <aside className="relative bg-white w-64 h-full p-6 shadow-lg z-50">
-            <h1 className="mb-4">GroceriesApp</h1>
-            <nav>
-              <ul className="flex flex-col gap-4">
-                <li>
-                  <Link
-                    href={"/lists"}
-                    className="flex items-center gap-2 text-gray-400"
-                  >
-                    <span className="material-symbols-outlined">lists</span>
-                    <h3>Listas</h3>
-                  </Link>
-                </li>
+            <div className="flex flex-col justify-between h-full">
+              <div>
+                <h1 className="mb-4">GroceriesApp</h1>
+                <nav>
+                  <ul className="flex flex-col gap-4">
+                    <li>
+                      <Link
+                        href={"/lists"}
+                        className="flex items-center gap-2 text-gray-400"
+                      >
+                        <span className="material-symbols-outlined">lists</span>
+                        <h3>Listas</h3>
+                      </Link>
+                    </li>
 
-                <li>
-                  <Link
-                    href={"/recipes"}
-                    className="flex items-center gap-2 text-gray-400"
-                  >
-                    <span className="material-symbols-outlined">
-                      restaurant
-                    </span>
-                    <h3>Receitas</h3>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
+                    <li>
+                      <Link
+                        href={"/recipes"}
+                        className="flex items-center gap-2 text-gray-400"
+                      >
+                        <span className="material-symbols-outlined">
+                          restaurant
+                        </span>
+                        <h3>Receitas</h3>
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
+              <AuthSection />
+            </div>
           </aside>
         </div>
       )}

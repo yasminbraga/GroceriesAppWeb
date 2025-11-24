@@ -8,7 +8,7 @@ export default function DashboardLayout({
   return (
     <>
       <MainHeader />
-      <main className="h-(--main-content-height)">{children}</main>;
+      <main className="h-(--main-content-height)">{children}</main>
     </>
   );
 }
