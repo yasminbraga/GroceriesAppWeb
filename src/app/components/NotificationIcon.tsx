@@ -60,7 +60,7 @@ const NotificationIcon = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-2 top-10 bg-white shadow-lg border-1 border-gray-100 rounded-lg min-w-[300px]">
+        <div className="absolute bottom-12 left-12 md:right-2 md:top-10 bg-white shadow-lg border-1 border-gray-100 rounded-lg min-w-[300px]">
           <h3 className="font-semibold p-4">Notificações</h3>
           {notifications.map((notification) => (
             <div
