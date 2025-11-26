@@ -1,15 +1,6 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-
-type NotificationType = {
-  id: string;
-  message: string;
-  fromId: string;
-  isRead: boolean;
-  type: string;
-  resourceUrl: string;
-  createdAt: string;
-};
 
 const NotificationIcon = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,16 +51,20 @@ const NotificationIcon = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute bottom-12 left-12 md:right-2 md:top-10 bg-white shadow-lg border-1 border-gray-100 rounded-lg min-w-[300px]">
+        <div className="absolute left-12 bottom-12 md:left-auto md:bottom-auto md:right-2 md:top-10 bg-white shadow-lg border-1 border-gray-100 rounded-lg min-w-[300px]">
           <h3 className="font-semibold p-4">Notificações</h3>
           {notifications.map((notification) => (
             <div
               key={notification.id}
-              className={`p-4 border-b-1 border-b-gray-100 ${
+              className={`p-4 border-b-1 border-b-gray-100 text-sm ${
                 notification.isRead ? "bg-transparent" : "bg-orange-50"
               }`}
             >
-              <p className="text-sm">{notification.message}</p>
+              <Link
+                href={`http://localhost:3000/notifications/${notification.id}`}
+              >
+                {notification.message}
+              </Link>
             </div>
           ))}
         </div>
