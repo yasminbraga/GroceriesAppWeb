@@ -23,6 +23,17 @@ export default async function Notification({
   }
   const notification: NotificationType = await res.json();
 
+  if (!notification.isRead) {
+    await fetch(`http://localhost:8080/notifications/${id}/read`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+      cache: "no-store",
+    });
+  }
+
   return (
     <div className="p-4">
       <h3 className="text-2xl font-bold mb-3">{notification.message}</h3>
