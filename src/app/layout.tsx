@@ -23,7 +23,7 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="en">
-        <body className={`${plusJakartaSans.className} antialiased h-full`}>
+        <body className={`${plusJakartaSans.className} antialiased`}>
           {children}
         </body>
       </html>

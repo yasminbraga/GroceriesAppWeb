@@ -16,3 +16,13 @@ type ListType = {
   }>;
   recipe: RecipeType | null;
 };
+
+type NotificationType = {
+  id: string;
+  message: string;
+  fromId: string;
+  isRead: boolean;
+  type: string;
+  resourceUrl: string;
+  createdAt: string;
+};
