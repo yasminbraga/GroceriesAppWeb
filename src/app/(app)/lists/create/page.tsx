@@ -2,6 +2,7 @@
 
 import IngredientInput from "@/app/components/IngredientInput";
 import Input from "@/app/components/ui/Input";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Data = {
@@ -10,18 +11,22 @@ type Data = {
 };
 
 const NewList: React.FC = () => {
+  const router = useRouter();
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const [listName, setListName] = useState<string | null>(null);
   const [selectedRecipeId, setSelectedRecipeId] = useState<string>("");
   const [productData, setProductData] = useState<Data[]>([]);
   const isInputDisabled = selectedRecipeId !== "";
   const isSelectedDisabled = productData.length !== 0;
+  const [cookie, setCookie] = useState("");
 
   useEffect(() => {
     const cookieValue = document.cookie
       .split("; ")
       .find((row) => row.startsWith("accessToken="))
       ?.split("=")[1];
+
+    setCookie(cookieValue ?? "");
 
     loadRecipes(cookieValue ?? "");
   }, []);
@@ -57,6 +62,7 @@ const NewList: React.FC = () => {
       const res = await fetch(`http://localhost:8080/lists`, {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${cookie}`,
           "Content-Type": "application/json",
           key: "Access-Control-Allow-Credentials",
           value: "true",
@@ -69,6 +75,7 @@ const NewList: React.FC = () => {
       });
 
       if (!res.ok) throw new Error("Erro ao criar lista");
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
