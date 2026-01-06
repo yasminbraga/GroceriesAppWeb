@@ -2,6 +2,7 @@
 
 import IngredientInput from "@/app/components/IngredientInput";
 import Input from "@/app/components/ui/Input";
+import { apiFetch } from "@/app/utils/api";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -33,11 +34,10 @@ const NewList: React.FC = () => {
 
   const loadRecipes = async (token: string) => {
     try {
-      const data = await fetch("http://localhost:8080/recipes", {
+      const data = await apiFetch("/recipes", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        credentials: "include",
         cache: "no-store",
       });
       const dataRecipes = await data.json();
@@ -59,7 +59,7 @@ const NewList: React.FC = () => {
     ev.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:8080/lists`, {
+      const res = await apiFetch(`/lists`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookie}`,

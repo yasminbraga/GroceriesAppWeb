@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { apiFetch } from "../utils/api";
 
 const NotificationIcon = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,11 +19,10 @@ const NotificationIcon = () => {
 
   const loadNotifications = async (token: string) => {
     try {
-      const data = await fetch("http://localhost:8080/notifications", {
+      const data = await apiFetch("/notifications", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        credentials: "include",
         cache: "no-store",
       });
       const dataNotifications = await data.json();

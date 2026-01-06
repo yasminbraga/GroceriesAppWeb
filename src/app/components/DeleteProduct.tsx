@@ -1,13 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { apiFetch } from "../utils/api";
 
 const DeleteProduct = ({ id }: { id: number }) => {
   const router = useRouter();
 
   const handleDelete = async () => {
     try {
-      await fetch(`http://localhost:8080/products/${id}`, {
+      await apiFetch(`/products/${id}`, {
         method: "DELETE",
         headers: {
           key: "Access-Control-Allow-Credentials",

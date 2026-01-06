@@ -2,7 +2,7 @@ import NextAuth, { Session, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
-
+import { apiFetch } from "./app/utils/api";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
@@ -12,7 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       authorize: async (credentials) => {
         try {
-          const res = await fetch("http://localhost:8080/auth/login", {
+          const res = await apiFetch("/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

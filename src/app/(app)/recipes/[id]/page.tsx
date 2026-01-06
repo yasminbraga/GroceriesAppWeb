@@ -1,13 +1,13 @@
+import { apiFetch } from "@/app/utils/api";
 import { cookies } from "next/headers";
 
 async function getRecipe(id: number) {
   const cookieStore = await cookies();
   const token = cookieStore.get("accessToken")?.value;
-  const res = await fetch(`http://localhost:8080/recipes/${id}`, {
+  const res = await apiFetch(`/recipes/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    credentials: "include",
     cache: "no-store",
   });
   const recipe: RecipeType = await res.json();

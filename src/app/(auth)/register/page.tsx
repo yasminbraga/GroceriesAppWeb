@@ -1,5 +1,5 @@
 "use client";
-
+import { apiFetch } from "@/app/utils/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -16,7 +16,7 @@ const Register: React.FC = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:8080/users/register", {
+      const res = await apiFetch("/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

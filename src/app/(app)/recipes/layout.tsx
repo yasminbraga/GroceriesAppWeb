@@ -1,4 +1,5 @@
 import RecipeDropdown from "@/app/components/ui/RecipeDropdown";
+import { apiFetch } from "@/app/utils/api";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
@@ -10,11 +11,10 @@ export default async function RecipeLayout({
   const cookieStore = await cookies();
   const token = cookieStore.get("accessToken")?.value;
 
-  const data = await fetch("http://localhost:8080/recipes", {
+  const data = await apiFetch("/recipes", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    credentials: "include",
     cache: "no-store",
   });
 
@@ -41,7 +41,7 @@ export default async function RecipeLayout({
           {recipes.map((recipe) => (
             <Link
               key={recipe.id}
-              href={`http://localhost:3001/recipes/${recipe.id}`}
+              href={`/recipes/${recipe.id}`}
               className="flex justify-between items-center"
             >
               <div className="flex gap-2 flex-col mr-6">

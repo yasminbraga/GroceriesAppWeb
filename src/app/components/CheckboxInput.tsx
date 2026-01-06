@@ -1,5 +1,7 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { apiFetch } from "../utils/api";
 
 export default function CheckboxInput({
   id,
@@ -9,13 +11,13 @@ export default function CheckboxInput({
   checked: boolean;
 }) {
   const [isChecked, setIsChecked] = useState(checked);
-
+  const router = useRouter();
   const handleChange = async () => {
     try {
       const newChecked = !isChecked;
       setIsChecked(newChecked);
 
-      await fetch(`http://localhost:8080/products/${id}`, {
+      await apiFetch(`/products/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -24,6 +26,7 @@ export default function CheckboxInput({
         },
         body: JSON.stringify({ checked: newChecked }),
       });
+      router.refresh();
     } catch (error) {
       console.error("Erro ao atualizar o produto:", error);
       setIsChecked(!checked);

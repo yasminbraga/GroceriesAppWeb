@@ -1,8 +1,9 @@
 "use client";
 import IngredientInput from "@/app/components/IngredientInput";
 import Input from "@/app/components/ui/Input";
+import { apiFetch } from "@/app/utils/api";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InstructionInput from "./components/IntructionInput";
 
 type Data = {
@@ -15,6 +16,16 @@ const NewRecipe: React.FC = () => {
   const [ingredientData, setIngredientData] = useState<Data[]>([]);
   const [instructionList, setInstructionList] = useState<string[]>([]);
   const router = useRouter();
+  const [cookie, setCookie] = useState("");
+
+  useEffect(() => {
+    const cookieValue = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("accessToken="))
+      ?.split("=")[1];
+
+    setCookie(cookieValue ?? "");
+  }, []);
 
   const handleTitle = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setRecipeTitle(ev.target.value);
@@ -24,9 +35,10 @@ const NewRecipe: React.FC = () => {
     ev.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:8080/recipes`, {
+      const res = await apiFetch("/recipes", {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${cookie}`,
           "Content-Type": "application/json",
           key: "Access-Control-Allow-Credentials",
           value: "true",
