@@ -1,12 +1,13 @@
 import CheckboxInput from "@/app/components/CheckboxInput";
 import DeleteProduct from "@/app/components/DeleteProduct";
+import { apiFetch } from "@/app/utils/api";
 import { cookies } from "next/headers";
 
 async function getList(id: number) {
   const cookieStore = await cookies();
   const token = cookieStore.get("accessToken")?.value;
 
-  const res = await fetch(`http://localhost:8080/lists/${id}`, {
+  const res = await apiFetch(`/lists/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

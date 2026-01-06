@@ -1,5 +1,6 @@
 import Badge from "@/app/components/Badge";
 import Dropdown from "@/app/components/ui/Dropdown";
+import { apiFetch } from "@/app/utils/api";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
@@ -10,12 +11,8 @@ export default async function ListLayout({
 }) {
   const cookieStore = await cookies();
   const token = cookieStore.get("accessToken")?.value;
-  const data = await fetch("http://localhost:8080/lists", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    credentials: "include",
-    cache: "no-store",
+  const data = await apiFetch("/lists", {
+    headers: { Authorization: `Bearer ${token}` },
   });
 
   if (!data.ok) {
